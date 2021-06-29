@@ -1,33 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twitch Chat</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
-    <!-- Web socket init  -->
-    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
-    <script>
-      var socket = io("ws://localhost:3000")
-      socket.on("message", (text) => {
-          console.log(text);
-      })
-    </script>
-    <!-- Twitch chat listener -->
-    <script src="tmi.min.js"></script>
-    <script defer src="app.js"></script>
-</head>
-<body>
-    <div class="container py-5">
-        <div class="card">
-            <h5 class="card-header" id="user">Featured</h5>
-            <div class="card-body">
-              <p class="card-text" id="message">With supporting text below as a natural lead-in to additional content.</p>
-              <a id="buttoncard" href="#" class="btn btn-primary">Send the chat to server</a>
-            </div>
-          </div>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Twitch Chat</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
+
+		<!-- Web socket init  -->
+		<script
+			src="https://cdn.socket.io/4.1.2/socket.io.min.js"
+			integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			var socket = io("ws://localhost:3000");
+			socket.on("message", (text) => {
+				console.log(text);
+			});
+		</script>
+		<!-- Twitch chat listener -->
+		<script src="tmi.min.js"></script>
+		<script defer src="app.js"></script>
+	</head>
+	<body>
+		<div class="container py-5">
+			<div class="card">
+				<h5 class="card-header" id="user">Featured</h5>
+				<div class="card-body">
+					<p class="card-text" id="message">
+						With supporting text below as a natural lead-in to additional
+						content.
+					</p>
+					<a id="buttoncard" href="#" class="btn btn-primary">
+						Send the chat to server
+					</a>
+				</div>
+			</div>
+			<a id="buttonhide" href="#" class="btn btn-danger">
+				Hide chat
+			</a>
+		</div>
+	</body>
 </html>
