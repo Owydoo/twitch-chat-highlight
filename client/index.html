@@ -14,6 +14,11 @@
       socket.on("message", (text) => {
           console.log(text);
       })
+
+      var button = document.getElementById("buttoncard");
+      button.onclick = () => {
+        socket.emit("chat", ("TomLeCollegue", "Trop ouf les web socket"))
+      }
     </script>
     <!-- Twitch chat listener -->
     <script src="tmi.min.js"></script>
@@ -25,7 +30,7 @@
             <h5 class="card-header" id="user">Featured</h5>
             <div class="card-body">
               <p class="card-text" id="message">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a id="buttoncard" href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
     </div>
