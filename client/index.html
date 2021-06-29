@@ -14,11 +14,6 @@
       socket.on("message", (text) => {
           console.log(text);
       })
-
-      var button = document.getElementById("buttoncard");
-      button.onclick = () => {
-        socket.emit("chat", ("TomLeCollegue", "Trop ouf les web socket"))
-      }
     </script>
     <!-- Twitch chat listener -->
     <script src="tmi.min.js"></script>
@@ -36,3 +31,9 @@
     </div>
 </body>
 </html>
+<script>
+  var button = document.getElementById("buttoncard");
+  button.onclick = () => {
+    socket.emit("chat","TomLeCollegue", "Trop ouf les web socket")
+  }
+</script>
