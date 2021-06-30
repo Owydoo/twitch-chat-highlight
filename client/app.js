@@ -2,7 +2,7 @@ const userElement = document.querySelector("#user");
 const messageElement = document.querySelector("#message");
 
 const client = new tmi.Client({
-	channels: ["sardoche"],
+	channels: ["solary"],
 });
 
 client.connect();

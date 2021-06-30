@@ -1,3 +1,4 @@
+const { text } = require("express");
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -27,6 +28,10 @@ io.on("connection", (socket) => {
 	socket.on("hideChat", () => {
 		io.emit("hideChat")
 	})
+
+	socket.on("messageTel", (text) => {
+		console.log(text)
+	});
 });
 
 server.listen(3000, () => {
