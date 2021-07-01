@@ -1,9 +1,12 @@
 package com.entreprisecorp.messagereact.main
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Message
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -17,37 +20,25 @@ import java.net.URISyntaxException
 
 class MainActivity : AppCompatActivity() {
 
-    var socket: Socket? = null
+    lateinit var socket: Socket
 
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        try {
+        /*try {
             socket = IO.socket("http://192.168.86.140:3000")
+            Log.d("chat", "succeed")
+            socket.connect()
+            socket.emit("messageTel", "oueeeee telephone")
         } catch (e: URISyntaxException) {
-        }
+            Log.d("chat", e.toString())
+        }*/
 
-        socket?.connect()
-        socket?.emit("messageTel", "oueeeee telephone")
-
-        getMessages()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    fun getMessages() {
-        socket?.on("displayChat") {
-            Log.d("chat", it[0].toString() + " " + it[1].toString())
-            listMessage += ChatMessage(it[0].toString(),it[1].toString())
-        }
-    }
-
-
-    companion object {
-        val listMessage = mutableListOf<ChatMessage>()
     }
 }
