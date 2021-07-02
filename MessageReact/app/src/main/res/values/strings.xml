@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MessageReact</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="display_on_the_live">Display on the live</string>
+    <string name="react_to_this_message">React to this message ?</string>
+    <string name="settings">settings</string>
 </resources>

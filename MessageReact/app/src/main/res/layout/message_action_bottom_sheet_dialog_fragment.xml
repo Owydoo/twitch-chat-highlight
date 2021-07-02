@@ -7,31 +7,65 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/reactChatTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/react_to_this_message"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_margin="@dimen/spacing_large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reactChatTextView" />
+
+    <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/black"
         android:layout_margin="@dimen/spacing_large"
+        tools:text="TomLeCollegue"
+        android:textColor="@color/black"
+
+        app:layout_constraintBottom_toBottomOf="@+id/UserImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/UserImageView"
+        app:layout_constraintTop_toTopOf="@+id/UserImageView" />
+
+    <ImageView
+        android:id="@+id/UserImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        app:layout_constraintStart_toStartOf="@+id/reactChatTextView"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:srcCompat="@drawable/ic_user" />
 
     <TextView
         android:id="@+id/messageTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_medium"
-        android:text="TextView"
+        tools:text="@tools:sample/lorem[30]"
+        android:ellipsize="end"
+        android:maxLines="3"
         app:layout_constraintEnd_toEndOf="@+id/usernameTextView"
-        app:layout_constraintStart_toStartOf="@+id/usernameTextView"
+        app:layout_constraintStart_toStartOf="@+id/UserImageView"
         app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
 
     <Button
         android:id="@+id/DisplayOnStreamButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_large"
         android:layout_marginBottom="@dimen/spacing_large"
         android:text="@string/display_on_the_live"
         app:layout_constraintBottom_toBottomOf="parent"

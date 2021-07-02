@@ -13,7 +13,7 @@ class ReactMessage : Application() {
     override fun onCreate() {
         super.onCreate()
         try {
-            socket = IO.socket("http://192.168.86.140:3000")
+            socket = IO.socket("http://192.168.86.150:3000")
             Log.d("chat", "succeed")
             socket.connect()
             socket.emit("messageTel", "oueeeee telephone")

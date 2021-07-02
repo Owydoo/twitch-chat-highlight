@@ -3,8 +3,7 @@ package com.entreprisecorp.messagereact
 import android.os.Parcel
 import android.os.Parcelable
 
-
-data class ChatMessage(val username: String?, val message: String?): Parcelable {
+data class ChatMessage(val username: String?, val message: String?) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString()
