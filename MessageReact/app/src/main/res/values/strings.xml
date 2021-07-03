@@ -3,4 +3,6 @@
     <string name="display_on_the_live">Display on the live</string>
     <string name="react_to_this_message">React to this message ?</string>
     <string name="settings">settings</string>
+    <string name="displayed_message">Displayed message :</string>
+    <string name="hide_the_message">Hide the message</string>
 </resources>

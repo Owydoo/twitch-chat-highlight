@@ -24,6 +24,9 @@
 	<body>
 		<div id='containerCard' class="container py-5">
 		</div>
+		<a id="buttonhide" href="#" class="btn btn-danger">
+			Hide chat
+		</a>
 	</body>
 </html>
 <script>
@@ -35,7 +38,7 @@
 	});
 
 	socket.on("displayChat", (username, message) => {
-		var card = `<div class="card">
+		var card = `<div id="card" class="card">
 						<h5 class="card-header" id="user">${username}</h5>
 						<div class="card-body">
 							<p class="card-text" id="message">
@@ -50,6 +53,14 @@
 	});
 
 	socket.on("hideChat", () => {
-		document.getElementById("containerCard").innerHTML = "";
-	})
+		console.log("hide")
+		var card = document.getElementById("card");
+		card.style.animation="fadeout 2s linear forwards";
+	});
+
+	var buttonHide = document.getElementById("buttonhide");
+	buttonHide.onclick = () => {
+		socket.emit("hideChat");
+	};
+
 </script>

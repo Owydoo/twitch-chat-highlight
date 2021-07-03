@@ -13,10 +13,8 @@ class ReactMessage : Application() {
     override fun onCreate() {
         super.onCreate()
         try {
-            socket = IO.socket("http://192.168.86.150:3000")
-            Log.d("chat", "succeed")
+            socket = IO.socket("http://89.87.13.28:3000")
             socket.connect()
-            socket.emit("messageTel", "oueeeee telephone")
         } catch (e: URISyntaxException) {
             Log.d("chat", e.toString())
         }

@@ -18,19 +18,48 @@ class HomeViewModel(application: ReactMessage) : ViewModel() {
     val messages: MutableLiveData<ArrayList<ChatMessage>> =
         MutableLiveData<ArrayList<ChatMessage>>()
 
+    val displayedMessage: MutableLiveData<ChatMessage?> = MutableLiveData<ChatMessage?>()
+
     private val socket = application.socket
 
     init {
         collectChat()
+        listenerHideMessage()
+        displayedMessage.value = null
+        listenerDisplayChat()
+    }
+
+    fun sendChatToStream(chatMessage: ChatMessage) {
+        socket.emit("sendMessageToLive", chatMessage.username, chatMessage.message)
     }
 
     private fun collectChat() {
         val messageList = ArrayList<ChatMessage>()
-        socket.on("displayChat") {
+        socket.on("sendChat") {
             Log.d("chat", it[0].toString() + " " + it[1].toString())
             messageList += ChatMessage(it[0].toString(), it[1].toString())
             viewModelScope.launch {
                 messages.value = messageList
+            }
+        }
+    }
+
+    fun hideMessage() {
+        socket.emit("hideChat")
+    }
+
+    private fun listenerDisplayChat() {
+        socket.on("displayChat") {
+            viewModelScope.launch {
+                displayedMessage.value = ChatMessage(it[0].toString(), it[1].toString())
+            }
+        }
+    }
+
+    private fun listenerHideMessage() {
+        socket.on("hideChat") {
+            viewModelScope.launch {
+                displayedMessage.value = null
             }
         }
     }

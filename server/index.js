@@ -29,6 +29,10 @@ io.on("connection", (socket) => {
 		io.emit("hideChat")
 	})
 
+	socket.on("sendMessageToLive", (username, message) => {
+		io.emit("displayChat", username, message)
+	});
+
 	socket.on("messageTel", (text) => {
 		console.log(text)
 	});
@@ -37,15 +41,14 @@ io.on("connection", (socket) => {
 
 // TMI ----------------------------
 const client = new tmi.Client({
-	channels: ["kamet0"],
+	channels: ["otplol_"],
 });
 
 client.connect();
 
 client.on("message", (channel, tags, message, self) => {
 	console.log(`${tags["display-name"]}: ${message}`);
-	io.emit("displayChat", tags["display-name"], message);
-
+	io.emit("sendChat", tags["display-name"], message);
 });
 
 
