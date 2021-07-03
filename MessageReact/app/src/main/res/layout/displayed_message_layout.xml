@@ -65,6 +65,7 @@
         tools:text="@tools:sample/lorem[30]" />
 
     <Button
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/hideMessageButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

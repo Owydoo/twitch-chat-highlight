@@ -50,7 +50,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             fastAdapter.registerAdapterDataObserver(ScrollToTopDataObserver(layoutManagerRC, this) {
                 binding.scrollToEndButton.apply {
-                    isVisible = true
+                    isVisible = !it
                 }
             })
         }
@@ -71,7 +71,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 binding.include.apply {
                     rootDisplayedChatLayout.visibility = View.VISIBLE
                     messageTextView.text = it.message
-                    usernameTextView.text = it.message
+                    usernameTextView.text = it.username
                     hideMessageButton.setOnClickListener {
                         viewModel.hideMessage()
                     }
