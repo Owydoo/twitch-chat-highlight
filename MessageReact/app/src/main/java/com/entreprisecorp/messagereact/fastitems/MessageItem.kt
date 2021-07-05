@@ -26,7 +26,6 @@ class MessageItem : AbstractBindingItem<ItemMessageBinding>() {
             usernameTextView.text = chatMessage?.username
             messageTextView.text = chatMessage?.message
             root.setOnClickListener(onClick)
-            rootLayout.addRipple()
         }
     }
 

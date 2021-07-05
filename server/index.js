@@ -16,6 +16,10 @@ app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/admin", (req, res) => {
+	res.sendFile(__dirname + "/admin.html");
+});
+
 io.on("connection", (socket) => {
 	console.log("a user connected");
 	socket.emit("message", "oueeeeee");
@@ -41,7 +45,7 @@ io.on("connection", (socket) => {
 
 // TMI ----------------------------
 const client = new tmi.Client({
-	channels: ["otplol_"],
+	channels: ["sardoche"],
 });
 
 client.connect();

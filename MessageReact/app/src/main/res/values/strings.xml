@@ -5,4 +5,6 @@
     <string name="settings">settings</string>
     <string name="displayed_message">Displayed message :</string>
     <string name="hide_the_message">Hide the message</string>
+    <string name="chat_twitch">Chat Twitch</string>
+    <string name="arrowdescription">arrow</string>
 </resources>
