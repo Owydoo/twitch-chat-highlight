@@ -21,4 +21,14 @@
         <argument android:name="message"
             app:argType="com.entreprisecorp.messagereact.ChatMessage" />
     </dialog>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.entreprisecorp.messagereact.fragment.SettingsFragment"
+        android:label="SettingsFragment" />
+    <action
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@id/settingsFragment" />
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment" />
 </navigation>

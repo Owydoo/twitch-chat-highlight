@@ -7,4 +7,6 @@
     <string name="hide_the_message">Hide the message</string>
     <string name="chat_twitch">Chat Twitch</string>
     <string name="arrowdescription">arrow</string>
+    <string name="change_the_server_ip">Change the server ip</string>
+    <string name="ip_adress">IP adress</string>
 </resources>
