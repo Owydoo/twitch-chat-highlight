@@ -1,4 +1,3 @@
-const { text } = require("express");
 const express = require("express");
 const tmi = require('tmi.js');
 const app = express();

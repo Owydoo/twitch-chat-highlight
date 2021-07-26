@@ -12,19 +12,19 @@ import com.google.android.material.snackbar.Snackbar
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
-    lateinit var binding: FragmentSettingsBinding
+    private lateinit var binding: FragmentSettingsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentSettingsBinding.bind(view)
-        binding.ipEditText.hint = (activity?.application as ReactMessage).ipAddress
+        binding.ipEditText.setText((activity?.application as ReactMessage).reactMessageDatasource.ipAddress)
 
         binding.changeServerButton.setOnClickListener {
             val ipAddress = binding.ipEditText.text.toString()
             context?.let { it1 -> Snackbar.make(it1, view, ipAddress, Snackbar.LENGTH_LONG).show() }
-            (activity?.application as ReactMessage).changeSocket(ipAddress)
-            findNavController().navigate(NavMainDirections.actionGlobalHomeFragment())
+            (activity?.application as ReactMessage).reactMessageDatasource.changeSocket(ipAddress)
+            findNavController().navigateUp()
         }
 
     }
