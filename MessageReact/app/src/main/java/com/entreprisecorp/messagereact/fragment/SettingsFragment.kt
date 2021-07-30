@@ -19,11 +19,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         binding = FragmentSettingsBinding.bind(view)
         binding.ipEditText.setText((activity?.application as ReactMessage).reactMessageDatasource.ipAddress)
+        binding.channelEditText.setText((activity?.application as ReactMessage).reactMessageDatasource.channelTwitch)
 
         binding.changeServerButton.setOnClickListener {
             val ipAddress = binding.ipEditText.text.toString()
-            context?.let { it1 -> Snackbar.make(it1, view, ipAddress, Snackbar.LENGTH_LONG).show() }
-            (activity?.application as ReactMessage).reactMessageDatasource.changeSocket(ipAddress)
+            val channel = binding.channelEditText.text.toString()
+            context?.let { it1 -> Snackbar.make(it1, view, "$ipAddress $channel", Snackbar.LENGTH_LONG).show() }
+            (activity?.application as ReactMessage).reactMessageDatasource.changeSocket(ipAddress, channel)
             findNavController().navigateUp()
         }
 

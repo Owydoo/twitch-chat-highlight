@@ -12,6 +12,17 @@ import java.net.URISyntaxException
 class ReactMessageDatasource(context: Context) {
     lateinit var socket: Socket
 
+    var channelTwitch: String = ""
+        set(value) {
+            field = value
+            sharedPrefs.edit {
+                putString(SHARED_PREFS_CHANNEL, value)
+            }
+        }
+        get() {
+            return sharedPrefs.getString(SHARED_PREFS_CHANNEL, null) ?: "sardoche"
+        }
+
     var ipAddress: String? = ""
         set(value) {
             field = value
@@ -31,16 +42,26 @@ class ReactMessageDatasource(context: Context) {
         try {
             socket = IO.socket(ipAddress)
             socket.connect()
+            initChannel(channelTwitch)
+
         } catch (e: Exception) {
             Log.d("chat", e.toString())
         }
     }
 
-    fun changeSocket(ipAddress: String) {
+    fun initChannel(channel: String) {
+        socket.on("connected") {
+            socket.emit("sendChannelName", channel)
+        }
+    }
+
+    fun changeSocket(ipAddress: String, channel: String) {
         try {
             socket = IO.socket(ipAddress)
             socket.connect()
+            initChannel(channel)
             this.ipAddress = ipAddress
+            this.channelTwitch = channel
         } catch (e: URISyntaxException) {
             Log.d("chat", e.toString())
         }
@@ -48,6 +69,7 @@ class ReactMessageDatasource(context: Context) {
 
     companion object {
         const val SHARED_PREFS_IP: String = "id_adress_server"
+        const val SHARED_PREFS_CHANNEL: String = "channel_name"
         const val DEFAULT_IP: String = "http://192.168.1.1:3000"
     }
 

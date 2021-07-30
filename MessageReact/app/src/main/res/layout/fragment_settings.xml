@@ -16,14 +16,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        style="@style/Widget.AppCompat.EditText"
+        android:id="@+id/channelEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_large"
+        android:hint="@string/channel_twitch"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ipEditText" />
+
     <Button
         android:id="@+id/changeServerButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/change_the_server_ip"
         android:layout_marginTop="@dimen/spacing_large"
+        android:layout_height="wrap_content"
+        android:text="@string/update_info"
         app:layout_constraintEnd_toEndOf="@+id/ipEditText"
         app:layout_constraintStart_toStartOf="@+id/ipEditText"
-        app:layout_constraintTop_toBottomOf="@+id/ipEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/channelEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

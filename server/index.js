@@ -21,7 +21,23 @@ app.get("/admin", (req, res) => {
 
 io.on("connection", (socket) => {
 	console.log("a user connected");
-	socket.emit("message", "oueeeeee");
+	socket.emit("connected");
+
+	socket.on("sendChannelName", (channelName) => {
+		console.log(channelName);
+		// TMI ----------------------------
+		const client = new tmi.Client({
+			channels: [channelName],
+		});
+
+		client.connect();
+
+		client.on("message", (channel, tags, message, self) => {
+			console.log(`${tags["display-name"]}: ${message}`);
+			socket.emit("sendChat", tags["display-name"], message);
+		});
+
+	});
 
 	socket.on("chat", (username, message) => {
 		console.log(`${username} a envoyé ${message}`);
@@ -40,20 +56,6 @@ io.on("connection", (socket) => {
 		console.log(text)
 	});
 });
-
-
-// TMI ----------------------------
-const client = new tmi.Client({
-	channels: ["sardoche"],
-});
-
-client.connect();
-
-client.on("message", (channel, tags, message, self) => {
-	console.log(`${tags["display-name"]}: ${message}`);
-	io.emit("sendChat", tags["display-name"], message);
-});
-
 
 server.listen(3000, () => {
 	console.log("listening on *:3000");

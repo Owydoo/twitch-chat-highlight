@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
@@ -18,11 +19,13 @@ import com.entreprisecorp.messagereact.NavMainDirections
 import com.entreprisecorp.messagereact.R
 import com.entreprisecorp.messagereact.ReactMessage
 import com.entreprisecorp.messagereact.databinding.FragmentHomeBinding
+import com.entreprisecorp.messagereact.extensions.MarginRecyclerViewDecoration
 import com.entreprisecorp.messagereact.extensions.ScrollToTopDataObserver
 import com.entreprisecorp.messagereact.extensions.closeKeyboardOnScroll
 import com.entreprisecorp.messagereact.fastitems.messageItem
 import com.entreprisecorp.messagereact.viewModel.HomeViewModel
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
+import java.util.Locale
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -37,6 +40,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = FragmentHomeBinding.bind(view)
         setHasOptionsMenu(true)
 
+        val title = (activity?.application as ReactMessage).reactMessageDatasource.channelTwitch.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
+        }
+
+        (activity as AppCompatActivity).supportActionBar?.title = "  $title"
+
+        (activity as AppCompatActivity).supportActionBar?.setIcon(R.drawable.app_logo)
         binding.scrollToEndButton.apply {
             isVisible = false
             setOnClickListener {
@@ -51,6 +63,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             closeKeyboardOnScroll(activity)
             adapter = fastAdapter
 
+            addItemDecoration(
+                MarginRecyclerViewDecoration(resources.getDimensionPixelSize(R.dimen.spacing_medium))
+            )
             fastAdapter.registerAdapterDataObserver(ScrollToTopDataObserver(layoutManagerRC, this) {
                 binding.scrollToEndButton.apply {
                     isVisible = !it
