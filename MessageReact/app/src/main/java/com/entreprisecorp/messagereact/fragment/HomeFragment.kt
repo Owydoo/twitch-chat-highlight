@@ -53,7 +53,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             isVisible = false
             setOnClickListener {
                 isVisible = false
-                viewModel.messages.value?.let { it1 -> binding.recyclerView.smoothScrollToPosition(it1.size) }
+                binding.recyclerView.smoothScrollToPosition(fastAdapter.itemCount)
             }
         }
 
