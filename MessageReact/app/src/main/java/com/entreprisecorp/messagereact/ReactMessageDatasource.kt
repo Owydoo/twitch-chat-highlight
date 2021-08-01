@@ -5,12 +5,14 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.entreprisecorp.messagereact.main.MainActivity
 import io.socket.client.IO
 import io.socket.client.Socket
 import java.net.URISyntaxException
 
-class ReactMessageDatasource(context: Context) {
+class ReactMessageDatasource(private val context: Context) {
     lateinit var socket: Socket
+    lateinit var activity: MainActivity
 
     var channelTwitch: String = ""
         set(value) {
@@ -38,30 +40,43 @@ class ReactMessageDatasource(context: Context) {
         PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-    fun initSocket() {
+    fun initSocket(activity: MainActivity) {
+        this.activity = activity
         try {
             socket = IO.socket(ipAddress)
             socket.connect()
             initChannel(channelTwitch)
-
         } catch (e: Exception) {
             Log.d("chat", e.toString())
         }
     }
 
-    fun initChannel(channel: String) {
+    private fun initChannel(channel: String) {
+        activity.showSnackBar("$channel, $ipAddress", R.color.primary)
         socket.on("connected") {
+            activity.showSnackBar("Connected", R.color.green)
             socket.emit("sendChannelName", channel)
         }
     }
 
     fun changeSocket(ipAddress: String, channel: String) {
         try {
+            socket.disconnect()
             socket = IO.socket(ipAddress)
             socket.connect()
             initChannel(channel)
             this.ipAddress = ipAddress
             this.channelTwitch = channel
+        } catch (e: URISyntaxException) {
+            Log.d("chat", e.toString())
+        }
+    }
+
+    fun refreshSocket() {
+        try {
+            socket = IO.socket(ipAddress)
+            socket.connect()
+            initChannel(channelTwitch)
         } catch (e: URISyntaxException) {
             Log.d("chat", e.toString())
         }

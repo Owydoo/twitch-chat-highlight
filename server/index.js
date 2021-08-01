@@ -23,10 +23,12 @@ io.on("connection", (socket) => {
 	console.log("a user connected");
 	socket.emit("connected");
 
+	var client;
+
 	socket.on("sendChannelName", (channelName) => {
 		console.log(channelName);
 		// TMI ----------------------------
-		const client = new tmi.Client({
+		client = new tmi.Client({
 			channels: [channelName],
 		});
 
@@ -37,6 +39,11 @@ io.on("connection", (socket) => {
 			socket.emit("sendChat", tags["display-name"], message);
 		});
 
+	});
+
+	socket.on("disconnect", (reason) => {
+		console.log(reason);
+		client = null;
 	});
 
 	socket.on("chat", (username, message) => {

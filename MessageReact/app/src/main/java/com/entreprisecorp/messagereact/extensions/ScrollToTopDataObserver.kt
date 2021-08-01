@@ -2,7 +2,6 @@ package com.entreprisecorp.messagereact.extensions
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.entreprisecorp.messagereact.fastitems.MessageItem
 
 class ScrollToTopDataObserver(private val layoutManager: LinearLayoutManager,
     private val recyclerView: RecyclerView, val block: (scroll: Boolean) -> Unit)

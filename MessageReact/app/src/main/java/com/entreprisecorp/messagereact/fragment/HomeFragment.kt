@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entreprisecorp.messagereact.ChatMessage
@@ -138,7 +137,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        findNavController().navigate(NavMainDirections.actionGlobalSettingsFragment())
+        when (item.itemId) {
+            R.id.edit_profile -> {
+                findNavController().navigate(NavMainDirections.actionGlobalSettingsFragment())
+            }
+            R.id.action_refresh -> {
+                (activity?.application as ReactMessage).reactMessageDatasource.refreshSocket()
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 

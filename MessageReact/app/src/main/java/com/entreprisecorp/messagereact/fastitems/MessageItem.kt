@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import com.entreprisecorp.messagereact.ChatMessage
 import com.entreprisecorp.messagereact.R
 import com.entreprisecorp.messagereact.databinding.ItemMessageBinding
-import com.entreprisecorp.messagereact.extensions.addRipple
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 
 class MessageItem : AbstractBindingItem<ItemMessageBinding>() {
@@ -23,8 +22,8 @@ class MessageItem : AbstractBindingItem<ItemMessageBinding>() {
         super.bindView(binding, payloads)
 
         binding.apply {
-            usernameTextView.text = chatMessage?.username
-            messageTextView.text = chatMessage?.message
+            usernameTextView.text = chatMessage.username
+            messageTextView.text = chatMessage.message
             root.setOnClickListener(onClick)
         }
     }
