@@ -20,7 +20,6 @@ import com.entreprisecorp.messagereact.ReactMessage
 import com.entreprisecorp.messagereact.databinding.FragmentHomeBinding
 import com.entreprisecorp.messagereact.extensions.MarginRecyclerViewDecoration
 import com.entreprisecorp.messagereact.extensions.ScrollToTopDataObserver
-import com.entreprisecorp.messagereact.extensions.closeKeyboardOnScroll
 import com.entreprisecorp.messagereact.fastitems.messageItem
 import com.entreprisecorp.messagereact.viewModel.HomeViewModel
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
@@ -59,7 +58,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.recyclerView.apply {
             val layoutManagerRC = LinearLayoutManager(activity)
             layoutManager = layoutManagerRC
-            closeKeyboardOnScroll(activity)
             adapter = fastAdapter
 
             addItemDecoration(
@@ -136,13 +134,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.messages.value?.clear()
+        fastAdapter.setNewList(emptyList())
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.edit_profile -> {
                 findNavController().navigate(NavMainDirections.actionGlobalSettingsFragment())
             }
             R.id.action_refresh -> {
-                (activity?.application as ReactMessage).reactMessageDatasource.refreshSocket()
+                (activity?.application as ReactMessage).reactMessageDatasource.changeSocket()
+                viewModel.messages.value?.clear()
+                fastAdapter.setNewList(emptyList())
+                viewModel.initSocketListener((activity?.application as ReactMessage).reactMessageDatasource.socket)
             }
         }
         return super.onOptionsItemSelected(item)

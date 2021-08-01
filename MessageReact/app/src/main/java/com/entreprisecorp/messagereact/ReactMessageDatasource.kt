@@ -22,10 +22,10 @@ class ReactMessageDatasource(private val context: Context) {
             }
         }
         get() {
-            return sharedPrefs.getString(SHARED_PREFS_CHANNEL, null) ?: "sardoche"
+            return sharedPrefs.getString(SHARED_PREFS_CHANNEL, null) ?: "linterface"
         }
 
-    var ipAddress: String? = ""
+    var ipAddress: String = ""
         set(value) {
             field = value
             sharedPrefs.edit {
@@ -33,7 +33,7 @@ class ReactMessageDatasource(private val context: Context) {
             }
         }
         get() {
-            return sharedPrefs.getString(SHARED_PREFS_IP, DEFAULT_IP)
+            return sharedPrefs.getString(SHARED_PREFS_IP, DEFAULT_IP) ?: "http://192.168.1.1:3000"
         }
 
     private val sharedPrefs: SharedPreferences by lazy {
@@ -59,7 +59,7 @@ class ReactMessageDatasource(private val context: Context) {
         }
     }
 
-    fun changeSocket(ipAddress: String, channel: String) {
+    fun changeSocket(ipAddress: String = this.ipAddress, channel: String = this.channelTwitch) {
         try {
             socket.disconnect()
             socket = IO.socket(ipAddress)
@@ -67,16 +67,6 @@ class ReactMessageDatasource(private val context: Context) {
             initChannel(channel)
             this.ipAddress = ipAddress
             this.channelTwitch = channel
-        } catch (e: URISyntaxException) {
-            Log.d("chat", e.toString())
-        }
-    }
-
-    fun refreshSocket() {
-        try {
-            socket = IO.socket(ipAddress)
-            socket.connect()
-            initChannel(channelTwitch)
         } catch (e: URISyntaxException) {
             Log.d("chat", e.toString())
         }

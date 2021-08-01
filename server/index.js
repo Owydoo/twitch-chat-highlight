@@ -43,7 +43,8 @@ io.on("connection", (socket) => {
 
 	socket.on("disconnect", (reason) => {
 		console.log(reason);
-		client = null;
+		client.disconnect();
+		delete client;
 	});
 
 	socket.on("chat", (username, message) => {
