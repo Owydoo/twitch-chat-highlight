@@ -1,7 +1,65 @@
+@font-face {
+  font-family: "Jet Brains Mono";
+  src: url("/webfonts/JetBrainsMono-Regular.woff2") format("woff2"),
+        url("/webfonts/JetBrainsMono-Light.woff2") format("woff2")
+  ;
+}
+
+
+body {
+  /* background-color: red; */
+  background-image: url("./../../jonathan-velasquez-c1ZN57GfDB0-unsplash.jpg");
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .card {
     -webkit-animation: fadein 2s linear forwards;
     animation: fadein 2s linear forwards;
 }
+
+.card-style {
+  width: 400px;
+  background-color: rgba(236, 252, 255, 0.635);
+  border-radius: 15px;
+  min-height: 100px;
+  position: absolute;
+  left: 20%;
+  top: 20%;
+}
+
+.header {
+  color: rgba(0, 0, 0, 0.416);
+  display: flex;
+  flex-direction: row;
+  padding: 3% 4%;
+  padding-bottom: 2%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.twitch {
+  position: relative;
+  top: -0.5px;
+  font-size: small;
+}
+
+img {
+  max-height: 15px;
+  margin-right: 3%;
+  fill: rgba(0, 0, 0, 0.416);
+}
+
+.username {
+  margin-left: 4%;
+}
+
+.message {
+  margin: 2% 4%;
+  margin-bottom: 4%;
+  font-size: small;
+}
+
 
 @-webkit-keyframes fadein {
   0% { opacity: 0; }
