@@ -18,14 +18,17 @@ body {
     animation: fadein 1s linear forwards;
 }
 
+
+/* x3 partout */
 .card-style {
-  width: 400px;
+  width: 1200px;
   background-color: rgba(236, 252, 255, 0.635);
-  border-radius: 15px;
-  min-height: 100px;
+  /* background-color: orange; */
+  border-radius: 45px;
+  min-height: 300px;
   position: absolute;
-  left: 20%;
-  top: 30%;
+  left: 3%;
+  top: 3%;
 }
 
 .header {
@@ -41,23 +44,25 @@ body {
 .twitch {
   position: relative;
   top: -0.5px;
-  font-size: small;
+  font-size: 35px;
 }
 
 img {
-  max-height: 15px;
+  max-height: 45px;
   margin-right: 3%;
   fill: rgba(0, 0, 0, 0.416);
 }
 
 .username {
   margin-left: 4%;
+  font-size: 40px;
 }
 
 .message {
   margin: 2% 4%;
   margin-bottom: 4%;
-  font-size: small;
+  font-size: 35px;
+  
 }
 
 
