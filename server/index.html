@@ -5,13 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ReactMessage</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
     <link rel="stylesheet" href="css/styles.css" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
     <script
       src="https://cdn.socket.io/4.1.2/socket.io.min.js"
       integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
@@ -31,19 +29,24 @@
   });
 
   socket.on("displayChat", (username, message) => {
-    var card = `<div id="card" class="card">
-						<h5 class="card-header" id="user">${username} a écrit :</h5>
-						<div class="card-body">
-							<p class="card-text" id="message">${message}</p>
-						</div>
-					</div>`;
+    var card = `<div class="card card-style" id="card">
+      <div class="header">
+        <img src="./message-square-outline.svg" alt="">
+        <span class="twitch">TWITCH</span>
+      </div>
+      <div class="username" id="user">
+        ${username}
+      </div>
+      <div class="message" id="message">
+        ${message}
+      </div>`;
     document.getElementById("containerCard").innerHTML = card;
   });
 
   socket.on("hideChat", () => {
     console.log("hide");
     var card = document.getElementById("card");
-    card.style.animation = "fadeout 2s linear forwards";
+    card.style.animation = "fadeout 1s linear forwards";
   });
 
   var buttonHide = document.getElementById("buttonhide");

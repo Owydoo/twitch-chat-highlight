@@ -14,8 +14,8 @@ body {
   background-size: cover;
 }
 .card {
-    -webkit-animation: fadein 2s linear forwards;
-    animation: fadein 2s linear forwards;
+    -webkit-animation: fadein 1s linear forwards;
+    animation: fadein 1s linear forwards;
 }
 
 .card-style {
@@ -24,8 +24,6 @@ body {
   border-radius: 15px;
   min-height: 100px;
   position: absolute;
-  left: 20%;
-  top: 20%;
 }
 
 .header {
