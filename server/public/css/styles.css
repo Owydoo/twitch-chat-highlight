@@ -8,7 +8,7 @@
 
 body {
   /* background-color: red; */
-  background-image: url("./../../jonathan-velasquez-c1ZN57GfDB0-unsplash.jpg");
+  background-image: url("./../../zongnan-bao-HLuiRmTI8E0-unsplash.jpg");
   background-attachment:fixed;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24,6 +24,8 @@ body {
   border-radius: 15px;
   min-height: 100px;
   position: absolute;
+  left: 20%;
+  top: 30%;
 }
 
 .header {
