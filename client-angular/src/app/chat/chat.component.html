@@ -1,0 +1,12 @@
+<!-- <app-chat-item [currentUserName]="currentUser" [currentMessage]="currentMessage"></app-chat-item> -->
+<nb-layout-header 
+  ><h1 class="">
+    {{ currentChannel }}
+  </h1></nb-layout-header
+>
+
+
+
+<div *ngFor="let twmessage of messageArray">
+  <app-chat-item [twMessage]="twmessage"></app-chat-item>
+</div>
