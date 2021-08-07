@@ -35,13 +35,9 @@
 <script>
   const userElement = document.getElementById("user");
   const messageElement = document.getElementById("message");
-  var socket = io("ws://localhost:3000");
-  socket.on("message", (text) => {
-    console.log(text);
-  });
 
-  socket.on("displayChat", (username, message) => {
-    var card = `<div class="card card-style backdrop-filter backdrop-blur-sm" id="card">
+  const printMessage = (username, message) => {
+    return `<div class="card card-style" id="card">
       <div class="header">
         <img src="./message-square-outline.svg" alt="">
         <span class="twitch">TWITCH</span>
@@ -52,7 +48,15 @@
       <div class="message" id="message">
         ${message}
       </div>`;
-    document.getElementById("containerCard").innerHTML = card;
+  }
+
+  var socket = io("ws://localhost:3000");
+  socket.on("message", (text) => {
+    console.log(text);
+  });
+
+  socket.on("displayChat", (username, message) => {
+    document.getElementById("containerCard").innerHTML = printMessage(username, message);
   });
 
   socket.on("hideChat", () => {

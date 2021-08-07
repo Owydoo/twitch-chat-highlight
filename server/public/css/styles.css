@@ -18,8 +18,6 @@ body {
     animation: fadein 1s linear forwards;
 }
 
-
-/* x3 partout */
 .card-style {
   width: 1200px;
   background-color: rgba(236, 252, 255, 0.635);
