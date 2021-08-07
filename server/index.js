@@ -39,13 +39,14 @@ io.on("connection", (socket) => {
 			socket.emit("sendChat", tags["display-name"], message);
 		});
 
+		socket.on("disconnect", (reason) => {
+			console.log(reason);
+			client.disconnect();
+			delete client;
+		});
+		
 	});
 
-	socket.on("disconnect", (reason) => {
-		console.log(reason);
-		client.disconnect();
-		delete client;
-	});
 
 	socket.on("chat", (username, message) => {
 		console.log(`${username} a envoyé ${message}`);

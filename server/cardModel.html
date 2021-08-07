@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<link
-			rel="stylesheet"
-			href="public/css/styles.css"
-		/>
-	</head>
-	<body>
-		<div id="card" class="card">
-            <h5 class="card-header" id="user">TomLeCollegue</h5>
-            <div class="card-body">
-                <p class="card-text" id="message">
-                    Ceci est un test de message c'est vraiment bien
-                </p>
-                <a id="buttoncard" href="#" class="btn btn-primary"
-                >Send the chat to server</a
-                >
-            </div>
-        </div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/styles.css" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- <div id="card" class="card">
+      <h5 class="card-header" id="user">TomLeCollegue</h5>
+      <div class="card-body">
+        <p class="card-text" id="message">
+          Ceci est un test de message c'est vraiment bien
+        </p>
+        <a id="buttoncard" href="#" class="btn btn-primary"
+          >Send the chat to server</a
+        >
+      </div>
+    </div> -->
+    
+    <div class="card card-style" id="card">
+      <div class="header">
+        <img src="./public/message-square-outline.svg" alt="">
+        <span class="twitch">TWITCH</span>
+      </div>
+      <div class="username" id="user">
+        TomLeCollegue
+      </div>
+      <div class="message" id="message">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam aliquam elementum lacus consectetur pretium. Nunc quis lacus lectus. 😏
+      </div>
+
+    </div>
+  </body>
 </html>

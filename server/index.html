@@ -1,58 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>ReactMessage</title>
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-			crossorigin="anonymous"
-		/>
-		<link
-			rel="stylesheet"
-			href="css/styles.css"
-		/>
-		<script
-			src="https://cdn.socket.io/4.1.2/socket.io.min.js"
-			integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
-			crossorigin="anonymous"
-		></script>
-	</head>
-	<body>
-		<div id='containerCard' class="container py-5">
-		</div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReactMessage</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.socket.io/4.1.2/socket.io.min.js"
+      integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="containerCard" class="container py-5">
+      <div class="card card-style backdrop-filter backdrop-blur-sm" id="card">
+        <div class="header">
+          <img src="./message-square-outline.svg" alt="">
+          <span class="twitch">TWITCH</span>
+        </div>
+        <div class="username" id="user">
+          TOM LE Collèguos
+        </div>
+        <div class="message" id="message">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sollicitudin ante ac consequat mattis. Morbi quis consectetur orci, sed accumsan dolor. Vivamus semper mauris nisl, a bibendum mauris cursus posuere. Nulla arcu nulla, fermentum eu accumsan vel, hendrerit nec odio. Duis lacinia pharetra lobortis. Ut vestibulum ultricies efficitur. Aliquam accumsan neque in orci suscipit, vehicula tristique risus sodales. Mauris ultricies sem id massa sodales facilisis. 
+        </div>
+    </div>
+  </body>
 </html>
 <script>
-	const userElement = document.getElementById("user");
-	const messageElement = document.getElementById("message");
-	var socket = io("ws://localhost:3000");
-	socket.on("message", (text) => {
-		console.log(text);
-	});
+  const userElement = document.getElementById("user");
+  const messageElement = document.getElementById("message");
 
-	socket.on("displayChat", (username, message) => {
-		var card = `<div id="card" class="card">
-						<h5 class="card-header" id="user">${username} à écrit :</h5>
-						<div class="card-body">
-							<p class="card-text" id="message">${message}</p>
-						</div>
-					</div>`;
-		document.getElementById("containerCard").innerHTML = card;
-	});
+  const printMessage = (username, message) => {
+    return `<div class="card card-style" id="card">
+      <div class="header">
+        <img src="./message-square-outline.svg" alt="">
+        <span class="twitch">TWITCH</span>
+      </div>
+      <div class="username" id="user">
+        ${username}
+      </div>
+      <div class="message" id="message">
+        ${message}
+      </div>`;
+  }
 
-	socket.on("hideChat", () => {
-		console.log("hide")
-		var card = document.getElementById("card");
-		card.style.animation="fadeout 2s linear forwards";
-	});
+  var socket = io("ws://localhost:3000");
+  socket.on("message", (text) => {
+    console.log(text);
+  });
 
-	var buttonHide = document.getElementById("buttonhide");
-	buttonHide.onclick = () => {
-		socket.emit("hideChat");
-	};
+  socket.on("displayChat", (username, message) => {
+    document.getElementById("containerCard").innerHTML = printMessage(username, message);
+  });
 
+  socket.on("hideChat", () => {
+    console.log("hide");
+    var card = document.getElementById("card");
+    card.style.animation = "fadeout 1s linear forwards";
+  });
+
+  var buttonHide = document.getElementById("buttonhide");
+  buttonHide.onclick = () => {
+    socket.emit("hideChat");
+  };
 </script>
