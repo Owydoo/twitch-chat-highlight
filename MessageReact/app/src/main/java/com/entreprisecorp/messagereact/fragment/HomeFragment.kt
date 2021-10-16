@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.entreprisecorp.data.ChatMessage
@@ -19,8 +18,8 @@ import com.entreprisecorp.messagereact.NavMainDirections
 import com.entreprisecorp.messagereact.R
 import com.entreprisecorp.messagereact.ReactMessage
 import com.entreprisecorp.messagereact.databinding.FragmentHomeBinding
-import com.entreprisecorp.messagereact.extensions.MarginRecyclerViewDecoration
-import com.entreprisecorp.messagereact.extensions.ScrollToTopDataObserver
+import com.entreprisecorp.messagereact.recyclerview.MarginRecyclerViewDecoration
+import com.entreprisecorp.messagereact.recyclerview.ScrollToTopDataObserver
 import com.entreprisecorp.messagereact.fastitems.messageItem
 import com.entreprisecorp.messagereact.main.MainActivity
 import com.entreprisecorp.messagereact.viewModel.HomeViewModel
@@ -35,12 +34,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val viewModel: HomeViewModel by activityViewModels()
 
+    private fun redirectToSettingsIfNeeded(): Boolean {
+        val ipAddress = (activity?.application as ReactMessage).ipAddress
+        return if (ipAddress == "") {
+            (activity as MainActivity).showSnackBar(
+                getString(R.string.ask_for_settings), R.color.primary
+            )
+            findNavController().navigate(NavMainDirections.actionGlobalSettingsFragment())
+            false
+        } else {
+            true
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
+        if (redirectToSettingsIfNeeded()) {
+            initRepository()
+        }
         setHasOptionsMenu(true)
         setupActionBar()
-        initRepository()
 
         binding.scrollToEndButton.apply {
             isVisible = false
@@ -66,7 +80,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         viewModel.isConnected.observe(viewLifecycleOwner) {
-            (activity as MainActivity).showSnackBar("Connected", R.color.green)
+            (activity as MainActivity).showSnackBar(getString(R.string.connected), R.color.green)
         }
 
         viewModel.messages.observe(viewLifecycleOwner) {
@@ -90,7 +104,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 ) else it.toString()
             }
         (activity as AppCompatActivity).supportActionBar?.title = title
-
         (activity as AppCompatActivity).supportActionBar?.setIcon(R.drawable.app_logo)
     }
 
@@ -124,7 +137,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.apply {
             include.messageTextView.text = null
             include.usernameTextView.text = null
-            include.hideMessageButton.setOnClickListener { null }
+            include.hideMessageButton.setOnClickListener(null)
         }
         val displayedMessageLayout = binding.displayedMessageLayout
         displayedMessageLayout.post {
@@ -143,12 +156,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.messages.value?.clear()
-        fastAdapter.setNewList(emptyList())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

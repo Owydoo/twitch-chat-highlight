@@ -21,7 +21,6 @@
         android:layout_marginTop="@dimen/spacing_large"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginEnd="@dimen/spacing_large"
-        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

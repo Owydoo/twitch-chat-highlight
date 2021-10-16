@@ -17,7 +17,7 @@ class MessageRepositoryImpl(
 ) : MessageRepository {
 
     private val socket: Socket by lazy {
-        IO.socket(ip)
+        IO.socket("http://$ip:3000")
     }
 
     private val messageDataSource: MessageDataSource by lazy {

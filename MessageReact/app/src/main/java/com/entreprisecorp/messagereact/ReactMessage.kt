@@ -19,7 +19,7 @@ class ReactMessage : Application() {
             }
         }
         get() {
-            return sharedPrefs.getString(SHARED_PREFS_CHANNEL, null) ?: "linterface"
+            return sharedPrefs.getString(SHARED_PREFS_CHANNEL, null) ?: ""
         }
 
     var ipAddress: String = ""
@@ -32,14 +32,13 @@ class ReactMessage : Application() {
         get() {
             return sharedPrefs.getString(
                 SHARED_PREFS_IP,
-                DEFAULT_IP
-            ) ?: "http://192.168.1.1:3000"
+                null
+            ) ?: ""
         }
 
 
     companion object {
         const val SHARED_PREFS_IP: String = "id_adress_server"
         const val SHARED_PREFS_CHANNEL: String = "channel_name"
-        const val DEFAULT_IP: String = "http://192.168.1.1:3000"
     }
 }

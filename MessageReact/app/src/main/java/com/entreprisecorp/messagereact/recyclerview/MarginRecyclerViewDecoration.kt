@@ -1,4 +1,4 @@
-package com.entreprisecorp.messagereact.extensions
+package com.entreprisecorp.messagereact.recyclerview
 
 import android.graphics.Rect
 import android.view.View

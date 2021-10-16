@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MessageReact</string>
+    <string name="app_name">ReactMessage</string>
     <string name="display_on_the_live">Display on the live</string>
     <string name="react_to_this_message">React to this message ?</string>
     <string name="settings">Settings</string>
@@ -10,4 +10,6 @@
     <string name="update_info">Update info</string>
     <string name="ip_adress">IP address</string>
     <string name="channel_twitch">Channel name</string>
+    <string name="connected">Connected</string>
+    <string name="ask_for_settings">You need to enter the IP address and Channel name</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.entreprisecorp.messagereact.extensions
+package com.entreprisecorp.messagereact.recyclerview
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
