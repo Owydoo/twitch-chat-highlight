@@ -38,7 +38,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val ipAddress = (activity?.application as ReactMessage).ipAddress
         return if (ipAddress == "") {
             (activity as MainActivity).showSnackBar(
-                getString(R.string.ask_for_settings), R.color.primary
+                getString(R.string.ask_for_settings), R.color.dark_blue
             )
             findNavController().navigate(NavMainDirections.actionGlobalSettingsFragment())
             false
@@ -104,7 +104,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 ) else it.toString()
             }
         (activity as AppCompatActivity).supportActionBar?.title = title
-        (activity as AppCompatActivity).supportActionBar?.setIcon(R.drawable.app_logo)
+        (activity as AppCompatActivity).supportActionBar?.setIcon(R.drawable.logo_toolbar)
     }
 
     private fun showMessageLayout(chatMessage: ChatMessage) {
