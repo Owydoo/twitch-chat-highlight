@@ -12,11 +12,7 @@ const io = require("socket.io")(server, {
 app.use(express.static(__dirname + '/public'));
 
 app.get("/", (req, res) => {
-	res.sendFile(__dirname + "/index.html");
-});
-
-app.get("/admin", (req, res) => {
-	res.sendFile(__dirname + "/admin.html");
+	res.sendFile(__dirname + "/public/index.html");
 });
 
 io.on("connection", (socket) => {
@@ -66,6 +62,10 @@ io.on("connection", (socket) => {
 	});
 });
 
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+	console.log('Connect your ReactMessage App to ' + add);
+});
+
 server.listen(3000, () => {
-	console.log("listening on *:3000");
+	console.log("ReactMessage's Server launched !");
 });
