@@ -22,7 +22,7 @@ body {
 /* x3 partout */
 .card-style {
   width: 1200px;
-  background-color: rgba(236, 252, 255, 0.635);
+  background-color: rgba(236, 252, 255, 0.8);
   /* background-color: orange; */
   border-radius: 45px;
   min-height: 300px;
