@@ -73,5 +73,6 @@ dependencies {
     // Testing
     testImplementation "junit:junit:_"
     androidTestImplementation "androidx.test.espresso:espresso-core:_"
+    implementation(project(":data"))
 
 }

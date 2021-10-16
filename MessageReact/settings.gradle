@@ -6,3 +6,4 @@ plugins {
 
 rootProject.name = "MessageReact"
 include ':app'
+include ':data'

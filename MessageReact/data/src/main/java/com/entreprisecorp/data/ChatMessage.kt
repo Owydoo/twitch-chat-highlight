@@ -1,4 +1,4 @@
-package com.entreprisecorp.messagereact
+package com.entreprisecorp.data
 
 import android.os.Parcel
 import android.os.Parcelable

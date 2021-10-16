@@ -15,16 +15,17 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.settings)
 
         binding = FragmentSettingsBinding.bind(view)
-        binding.ipEditText.setText((activity?.application as ReactMessage).reactMessageDatasource.ipAddress)
-        binding.channelEditText.setText((activity?.application as ReactMessage).reactMessageDatasource.channelTwitch)
-        (activity as AppCompatActivity).supportActionBar?.title = "  Settings"
+        binding.ipEditText.setText((activity?.application as ReactMessage).ipAddress)
+        binding.channelEditText.setText((activity?.application as ReactMessage).channelTwitch)
 
         binding.changeServerButton.setOnClickListener {
             val ipAddress = binding.ipEditText.text.toString()
             val channel = binding.channelEditText.text.toString()
-            (activity?.application as ReactMessage).reactMessageDatasource.changeSocket(ipAddress, channel)
+            (activity?.application as ReactMessage).ipAddress = ipAddress
+            (activity?.application as ReactMessage).channelTwitch = channel
             findNavController().navigateUp()
         }
 

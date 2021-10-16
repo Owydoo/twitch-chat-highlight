@@ -3,9 +3,11 @@ package com.entreprisecorp.messagereact.extensions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class ScrollToTopDataObserver(private val layoutManager: LinearLayoutManager,
-    private val recyclerView: RecyclerView, val block: (scroll: Boolean) -> Unit)
-    : RecyclerView.AdapterDataObserver() {
+class ScrollToTopDataObserver(
+    private val layoutManager: LinearLayoutManager,
+    private val recyclerView: RecyclerView,
+    val block: (scroll: Boolean) -> Unit
+) : RecyclerView.AdapterDataObserver() {
     override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
         super.onItemRangeInserted(positionStart, itemCount)
         val lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition()

@@ -18,10 +18,10 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        (application as ReactMessage).reactMessageDatasource.initSocket(this)
     }
 
     fun showSnackBar(text: String, color: Int) {
-        Snackbar.make(this, binding.root, text, Snackbar.LENGTH_LONG).setBackgroundTint(resources.getColor(color, null)).show()
+        Snackbar.make(this, binding.root, text, Snackbar.LENGTH_LONG)
+            .setBackgroundTint(resources.getColor(color, null)).show()
     }
 }

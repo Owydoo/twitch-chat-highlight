@@ -1,52 +1,63 @@
 package com.entreprisecorp.messagereact.viewModel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.entreprisecorp.messagereact.ChatMessage
-import io.socket.client.Socket
+import androidx.lifecycle.*
+import com.entreprisecorp.data.ChatMessage
+import com.entreprisecorp.data.impl.MessageRepositoryImpl
+import com.entreprisecorp.data.model.MessageRepository
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
 
-    val messages: MutableLiveData<ArrayList<ChatMessage>> =
+    private var messageRepository: MessageRepository? = null
+
+    private val _messages: MutableLiveData<ArrayList<ChatMessage>> =
         MutableLiveData<ArrayList<ChatMessage>>()
+    val messages: LiveData<ArrayList<ChatMessage>> = _messages
 
-    val displayedMessage: MutableLiveData<ChatMessage?> = MutableLiveData<ChatMessage?>()
+    private val _displayedMessage: MutableLiveData<ChatMessage?> = MutableLiveData<ChatMessage?>()
+    val displayedMessage: LiveData<ChatMessage?> = _displayedMessage
 
-    private lateinit var socket: Socket
+    private val _isConnected: MutableLiveData<Boolean> = MutableLiveData()
+    val isConnected: LiveData<Boolean> = _isConnected
 
-    fun initSocketListener(socket: Socket) {
-        this.socket = socket
+    fun initSocketRepository(ipAddress: String, channelName: String) {
+        messageRepository = MessageRepositoryImpl(ipAddress, channelName)
+        _displayedMessage.postValue(null)
+        _messages.postValue(arrayListOf())
         collectChat()
-        listenerHideMessage()
-        displayedMessage.value = null
         listenerDisplayChat()
     }
 
     fun sendChatToStream(chatMessage: ChatMessage) {
-        socket.emit("sendMessageToLive", chatMessage.username, chatMessage.message)
+        messageRepository?.sendChatToStream(chatMessage)
     }
 
     private fun collectChat() {
         val messageList = ArrayList<ChatMessage>()
-        socket.on("sendChat") {
-            messageList += ChatMessage(it[0].toString(), it[1].toString())
-            messages.postValue(messageList)
+        viewModelScope.launch {
+            messageRepository?.onReceiveMessage()?.collect {
+                messageList += it
+                _messages.postValue(messageList)
+            }
         }
     }
 
     fun hideMessage() {
-        socket.emit("hideChat")
+        messageRepository?.hideMessage()
     }
 
     private fun listenerDisplayChat() {
-        socket.on("displayChat") {
-            displayedMessage.postValue(ChatMessage(it[0].toString(), it[1].toString()))
-        }
-    }
+        viewModelScope.launch {
+            messageRepository?.let {
+                it.onDisplayChat().collect { message ->
+                    _displayedMessage.postValue(message)
+                }
+                it.onHideChat().collect {
+                    _displayedMessage.postValue(null)
+                }
 
-    private fun listenerHideMessage() {
-        socket.on("hideChat") {
-            displayedMessage.postValue(null)
+            }
         }
     }
 }

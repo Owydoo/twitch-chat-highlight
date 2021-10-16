@@ -16,7 +16,11 @@ class MessageActionBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private val viewModel: HomeViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = MessageActionBottomSheetDialogFragmentBinding.inflate(inflater)
         return binding.root
     }

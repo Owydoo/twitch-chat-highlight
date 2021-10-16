@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.entreprisecorp.messagereact.ChatMessage
+import com.entreprisecorp.data.ChatMessage
 import com.entreprisecorp.messagereact.NavMainDirections
 import com.entreprisecorp.messagereact.R
 import com.entreprisecorp.messagereact.ReactMessage
@@ -21,9 +21,10 @@ import com.entreprisecorp.messagereact.databinding.FragmentHomeBinding
 import com.entreprisecorp.messagereact.extensions.MarginRecyclerViewDecoration
 import com.entreprisecorp.messagereact.extensions.ScrollToTopDataObserver
 import com.entreprisecorp.messagereact.fastitems.messageItem
+import com.entreprisecorp.messagereact.main.MainActivity
 import com.entreprisecorp.messagereact.viewModel.HomeViewModel
 import com.mikepenz.fastadapter.adapters.GenericFastItemAdapter
-import java.util.Locale
+import java.util.*
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -37,16 +38,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
         setHasOptionsMenu(true)
+        setupActionBar()
 
-        val title = (activity?.application as ReactMessage).reactMessageDatasource.channelTwitch.replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.getDefault()
-            ) else it.toString()
-        }
-
-        (activity as AppCompatActivity).supportActionBar?.title = "  $title"
-
-        (activity as AppCompatActivity).supportActionBar?.setIcon(R.drawable.app_logo)
         binding.scrollToEndButton.apply {
             isVisible = false
             setOnClickListener {
@@ -70,7 +63,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             })
         }
 
-        viewModel.initSocketListener((activity?.application as ReactMessage).reactMessageDatasource.socket)
+        viewModel.isConnected.observe(viewLifecycleOwner) {
+            (activity as MainActivity).showSnackBar("Connected", R.color.green)
+        }
 
         viewModel.messages.observe(viewLifecycleOwner) {
             refreshChat(it)
@@ -83,6 +78,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 showMessageLayout(it)
             }
         }
+    }
+
+    private fun setupActionBar() {
+        val title =
+            (activity?.application as ReactMessage).channelTwitch.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.getDefault()
+                ) else it.toString()
+            }
+        (activity as AppCompatActivity).supportActionBar?.title = title
+
+        (activity as AppCompatActivity).supportActionBar?.setIcon(R.drawable.app_logo)
     }
 
     private fun showMessageLayout(chatMessage: ChatMessage) {
@@ -98,7 +105,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             context?.let {
                 displayedMessageLayout.isVisible = true
                 displayedMessageLayout.animate().apply {
-                    duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+                    duration =
+                        resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
                     interpolator = this@HomeFragment.interpolator
                     setUpdateListener {
                         binding.recyclerView.updatePadding(top = (displayedMessageLayout.height.toFloat() * it.animatedValue as Float).toInt())
@@ -121,7 +129,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             context?.let {
                 displayedMessageLayout.isVisible = true
                 displayedMessageLayout.animate().apply {
-                    duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+                    duration =
+                        resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
                     interpolator = this@HomeFragment.interpolator
                     translationY(-displayedMessageLayout.height.toFloat())
                     setUpdateListener {
@@ -146,10 +155,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 findNavController().navigate(NavMainDirections.actionGlobalSettingsFragment())
             }
             R.id.action_refresh -> {
-                (activity?.application as ReactMessage).reactMessageDatasource.changeSocket()
-                viewModel.messages.value?.clear()
-                fastAdapter.setNewList(emptyList())
-                viewModel.initSocketListener((activity?.application as ReactMessage).reactMessageDatasource.socket)
+                fastAdapter.setNewList(arrayListOf())
+                initRepository()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -160,18 +167,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         inflater.inflate(R.menu.menu_settings, menu)
     }
 
-    private fun refreshChat(chat: ArrayList<ChatMessage>) {
-        fastAdapter.add(
-            messageItem {
-                chatMessage = chat.last().copy()
-                onClick = View.OnClickListener {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToMessageActionBottomSheetDialogFragment(
-                            chatMessage
+    private fun refreshChat(chat: List<ChatMessage>) {
+        chat.lastOrNull()?.let { message ->
+            fastAdapter.add(
+                messageItem {
+                    chatMessage = message
+                    onClick = View.OnClickListener {
+                        findNavController().navigate(
+                            HomeFragmentDirections.actionHomeFragmentToMessageActionBottomSheetDialogFragment(
+                                message
+                            )
                         )
-                    )
+                    }
                 }
-            }
+            )
+        }
+    }
+
+    private fun initRepository() {
+        viewModel.initSocketRepository(
+            (activity?.application as ReactMessage).ipAddress,
+            (activity?.application as ReactMessage).channelTwitch,
         )
     }
 }

@@ -2,11 +2,11 @@
     <string name="app_name">MessageReact</string>
     <string name="display_on_the_live">Display on the live</string>
     <string name="react_to_this_message">React to this message ?</string>
-    <string name="settings">settings</string>
+    <string name="settings">Settings</string>
     <string name="displayed_message">Displayed message :</string>
     <string name="hide_the_message">Hide the message</string>
     <string name="chat_twitch">Chat Twitch</string>
-    <string name="arrowdescription">arrow</string>
+    <string name="arrow_description">arrow</string>
     <string name="update_info">Update info</string>
     <string name="ip_adress">IP address</string>
     <string name="channel_twitch">Channel name</string>

@@ -19,7 +19,7 @@
         android:name="com.entreprisecorp.messagereact.fragment.MessageActionBottomSheetDialogFragment"
         android:label="MessageActionBottomSheetDialogFragment" >
         <argument android:name="message"
-            app:argType="com.entreprisecorp.messagereact.ChatMessage" />
+            app:argType="com.entreprisecorp.data.ChatMessage" />
     </dialog>
     <fragment
         android:id="@+id/settingsFragment"
