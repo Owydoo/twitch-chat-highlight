@@ -11,4 +11,5 @@ interface MessageRepository {
     fun hideMessage()
     fun onDisplayChat(): Flow<ChatMessage>
     fun onHideChat(): Flow<Boolean>
+    fun disconnect()
 }

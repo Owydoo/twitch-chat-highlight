@@ -1,5 +1,6 @@
 package com.entreprisecorp.data.impl
 
+import android.util.Log
 import com.entreprisecorp.data.ChatMessage
 import com.entreprisecorp.data.model.MessageDataSource
 import com.entreprisecorp.data.model.MessageRepository
@@ -37,6 +38,7 @@ class MessageRepositoryImpl(
     }
 
     override fun sendChatToStream(chatMessage: ChatMessage) {
+        Log.d("observe", "sendChat ${chatMessage.message}")
         messageDataSource.sendChatToStream(chatMessage)
     }
 
@@ -46,9 +48,12 @@ class MessageRepositoryImpl(
 
     override fun onReceiveMessage(): Flow<ChatMessage> = messageDataSource.onReceiveMessage()
 
-
     override fun onDisplayChat(): Flow<ChatMessage> = messageDataSource.onDisplayChat()
 
     override fun onHideChat(): Flow<Boolean> = messageDataSource.onHideChat()
+
+    override fun disconnect() {
+        socket.disconnect()
+    }
 }
 
