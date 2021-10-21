@@ -1,0 +1,108 @@
+#logo {
+    margin-top: 75px;
+    justify-content: center;
+    display: flex;
+    height: 120px;
+    width: 100vw;
+}
+
+#title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    font-size:25px;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    width: 100vw;
+}
+
+#subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    font-size:15px;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+
+#trailer {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+    width: 100vw;
+}
+h1 {
+    margin: 0;
+}
+
+.button_dl {
+    background-color: white;
+    display: flex;
+    justify-content: flex-start;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 30px;
+    height: 60px;
+    border-radius: 30px;
+    align-items: center;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    filter: drop-shadow(0 0 8px gray);
+    margin-left: 50px;
+    margin-right: 50px;
+    
+}
+
+.dl_android {
+    width: fit-content;
+}
+
+.dl_server {
+    width: 200px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.button_dl:hover{
+    background-color: rgb(216, 226, 233);
+}
+
+.button_dl:active {
+    background-color: rgb(182, 199, 211);
+}
+
+
+.button_dl img {
+    height: 40px;
+    width: fit-content;
+    margin-right: 20px;
+    
+}
+
+#play_button {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+}
+
+#dl_server {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    font-size:22px;
+    display: flex;
+    margin-top: 60px;
+    justify-content: center;
+    width: 100vw;
+}
+
+#server_buttons {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    margin-bottom: 100px;
+}
